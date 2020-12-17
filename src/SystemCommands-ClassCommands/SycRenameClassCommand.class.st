@@ -15,6 +15,13 @@ Class {
 	#category : #'SystemCommands-ClassCommands'
 }
 
+{ #category : #execution }
+SycRenameClassCommand >> asRefactorings [ 
+	^ { RBRenameClassRefactoring
+		rename: targetClass
+		to: newName }
+]
+
 { #category : #accessing }
 SycRenameClassCommand >> defaultMenuIconName [ 
 	^ #edit
@@ -23,16 +30,6 @@ SycRenameClassCommand >> defaultMenuIconName [
 { #category : #accessing }
 SycRenameClassCommand >> defaultMenuItemName [
 	^'Rename'
-]
-
-{ #category : #execution }
-SycRenameClassCommand >> execute [
-	
-	| refactoring |
-	refactoring := RBRenameClassRefactoring
-		rename: targetClass
-		to: newName.
-	refactoring execute
 ]
 
 { #category : #accessing }

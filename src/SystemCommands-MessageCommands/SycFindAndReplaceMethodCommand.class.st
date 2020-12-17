@@ -39,6 +39,7 @@ SycFindAndReplaceMethodCommand >> defaultMenuItemName [
 { #category : #execution }
 SycFindAndReplaceMethodCommand >> execute [
 	|dialog refactoring|
+	RBRefactoryChangeManager resetCounter.
 	refactoring :=  RBFindAndReplaceMethodRefactoring 
 		find: originalMessage contextUser.
 	refactoring setOption: #listToSearch toUse: [ :met :ref |

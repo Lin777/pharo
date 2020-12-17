@@ -17,6 +17,15 @@ SycAddSubclassCommand class >> browserContextMenuActivation [
 		for: ClyClass asCalypsoItemContext 
 ]
 
+{ #category : #execution }
+SycAddSubclassCommand >> asRefactorings [
+	^ { RBAddClassRefactoring
+		addClass: newClassName
+		superclass: targetClass
+		subclasses: #()
+		category: targetClass category }
+]
+
 { #category : #accessing }
 SycAddSubclassCommand >> defaultMenuIconName [
 	^#add
@@ -25,16 +34,4 @@ SycAddSubclassCommand >> defaultMenuIconName [
 { #category : #accessing }
 SycAddSubclassCommand >> defaultMenuItemName [
 	^'New subclass'
-]
-
-{ #category : #execution }
-SycAddSubclassCommand >> execute [
-	
-	| refactoring |
-	refactoring := RBAddClassRefactoring
-		addClass: newClassName
-		superclass: targetClass
-		subclasses: #()
-		category: targetClass category.
-	refactoring execute
 ]

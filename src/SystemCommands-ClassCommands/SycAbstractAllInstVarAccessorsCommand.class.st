@@ -41,12 +41,6 @@ SycAbstractAllInstVarAccessorsCommand >> defaultMenuItemName [
 	^'Abstract instance variables'
 ]
 
-{ #category : #execution }
-SycAbstractAllInstVarAccessorsCommand >> execute [
-
-	self executeRefactorings
-]
-
 { #category : #testing }
 SycAbstractAllInstVarAccessorsCommand >> isComplexRefactoring [
 	^true

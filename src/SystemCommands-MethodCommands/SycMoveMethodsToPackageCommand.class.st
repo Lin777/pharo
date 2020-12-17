@@ -44,8 +44,8 @@ SycMoveMethodsToPackageCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycMoveMethodsToPackageCommand >> execute [
-	
+SycMoveMethodsToPackageCommand >> executeRefactoringCommand [
+
 	methods do: [ :each | 
 		self moveMethod: each toPackage: package]
 

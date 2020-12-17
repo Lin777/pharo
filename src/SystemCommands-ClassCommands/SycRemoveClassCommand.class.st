@@ -36,12 +36,6 @@ SycRemoveClassCommand >> defaultMenuItemName [
 	^'Remove'
 ]
 
-{ #category : #execution }
-SycRemoveClassCommand >> execute [
-
-	self executeRefactorings
-]
-
 { #category : #testing }
 SycRemoveClassCommand >> isComplexRefactoring [
 	^true

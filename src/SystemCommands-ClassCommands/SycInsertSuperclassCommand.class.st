@@ -18,6 +18,15 @@ SycInsertSuperclassCommand class >> browserContextMenuActivation [
 		for: ClyClass asCalypsoItemContext 
 ]
 
+{ #category : #execution }
+SycInsertSuperclassCommand >> asRefactorings [ 
+	^ {RBAddClassRefactoring
+		addClass: newClassName
+		superclass: targetClass superclass
+		subclasses: {targetClass}
+		category: targetClass category}
+]
+
 { #category : #accessing }
 SycInsertSuperclassCommand >> defaultMenuIconName [
 	^#smallLoadProject
@@ -26,16 +35,4 @@ SycInsertSuperclassCommand >> defaultMenuIconName [
 { #category : #accessing }
 SycInsertSuperclassCommand >> defaultMenuItemName [
 	^'Insert superclass'
-]
-
-{ #category : #execution }
-SycInsertSuperclassCommand >> execute [
-	
-	| refactoring |
-	refactoring := RBAddClassRefactoring
-		addClass: newClassName
-		superclass: targetClass superclass
-		subclasses: {targetClass}
-		category: targetClass category.
-	refactoring execute
 ]

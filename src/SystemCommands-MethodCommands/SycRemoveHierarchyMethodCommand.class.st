@@ -38,7 +38,7 @@ SycRemoveHierarchyMethodCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycRemoveHierarchyMethodCommand >> execute [
+SycRemoveHierarchyMethodCommand >> executeRefactoringCommand [
 
 	self executeRefactorings
 ]

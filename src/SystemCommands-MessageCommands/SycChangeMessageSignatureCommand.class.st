@@ -52,7 +52,7 @@ SycChangeMessageSignatureCommand >> createRefactoring [
 
 { #category : #execution }
 SycChangeMessageSignatureCommand >> execute [
-	
+	RBRefactoryChangeManager resetCounter.
 	self executeRefactorings
 ]
 

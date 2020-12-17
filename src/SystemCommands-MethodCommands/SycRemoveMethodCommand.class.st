@@ -32,7 +32,7 @@ SycRemoveMethodCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycRemoveMethodCommand >> execute [
+SycRemoveMethodCommand >> executeRefactoringCommand [
 	
 	removeStrategy removeMethods: methods
 ]

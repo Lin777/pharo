@@ -48,7 +48,7 @@ SycPushDownMethodCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycPushDownMethodCommand >> execute [
+SycPushDownMethodCommand >> executeRefactoringCommand [
 
 	self executeRefactorings
 ]

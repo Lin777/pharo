@@ -26,6 +26,12 @@ SycSingleClassCommand class >> isAbstract [
 ]
 
 { #category : #execution }
+SycSingleClassCommand >> execute [
+	RBRefactoryChangeManager resetCounter .
+	self executeRefactorings
+]
+
+{ #category : #execution }
 SycSingleClassCommand >> prepareFullExecutionInContext: aToolContext [
 	super prepareFullExecutionInContext: aToolContext.
 	

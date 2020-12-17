@@ -18,12 +18,6 @@ SycRealizeClassCommand >> defaultMenuItemName [
 	^'Realize'
 ]
 
-{ #category : #execution }
-SycRealizeClassCommand >> execute [
-
-	self executeRefactorings
-]
-
 { #category : #testing }
 SycRealizeClassCommand >> isComplexRefactoring [
 	^true

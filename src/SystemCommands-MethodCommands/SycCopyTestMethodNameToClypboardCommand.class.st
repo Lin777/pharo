@@ -23,7 +23,8 @@ SycCopyTestMethodNameToClypboardCommand >> description [
 ]
 
 { #category : #execution }
-SycCopyTestMethodNameToClypboardCommand >> execute [
+SycCopyTestMethodNameToClypboardCommand >> executeRefactoringCommand [
+
 	| text |
 	text := (methods collect: [ :each | each selector asTestSelector ]) joinUsing: String cr.
 	Clipboard clipboardText: text.

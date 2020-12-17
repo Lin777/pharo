@@ -38,7 +38,7 @@ SycMoveMethodsToPackageDefiningClassCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycMoveMethodsToPackageDefiningClassCommand >> execute [
+SycMoveMethodsToPackageDefiningClassCommand >> executeRefactoringCommand [
 
 	| classPackage |
 	methods do: [ :each | 

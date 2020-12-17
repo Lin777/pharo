@@ -35,6 +35,12 @@ SycClassCommand >> classes: anObject [
 	classes := anObject
 ]
 
+{ #category : #execution }
+SycClassCommand >> execute [
+	RBRefactoryChangeManager resetCounter.
+	self executeRefactorings
+]
+
 { #category : #'activation-drag and drop' }
 SycClassCommand >> prepareExecutionInDragContext: aToolContext [
 	super prepareExecutionInDragContext: aToolContext.

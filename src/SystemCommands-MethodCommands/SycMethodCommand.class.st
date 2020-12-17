@@ -31,6 +31,17 @@ SycMethodCommand class >> isAbstract [
 	^self = SycMethodCommand 
 ]
 
+{ #category : #execution }
+SycMethodCommand >> execute [
+	RBRefactoryChangeManager resetCounter.
+	self executeRefactoringCommand. 
+]
+
+{ #category : #execution }
+SycMethodCommand >> executeRefactoringCommand [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 SycMethodCommand >> methods [
 	^ methods

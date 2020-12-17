@@ -23,11 +23,6 @@ SycGenerateEqualAndHashCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycGenerateEqualAndHashCommand >> execute [
-	self executeRefactorings
-]
-
-{ #category : #execution }
 SycGenerateEqualAndHashCommand >> prepareFullExecutionInContext: aToolContext [
 	super prepareFullExecutionInContext: aToolContext.
 	

@@ -46,7 +46,7 @@ SycExtractMethodCommand >> execute [
 
 { #category : #private }
 SycExtractMethodCommand >> executeRefactoring: refactoring [
-
+	RBRefactoryChangeManager resetCounter.
 	NautilusRefactoring new refactoringOptions: refactoring.
 	[ refactoring execute.
 	self findOcurrences: refactoring] 

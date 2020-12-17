@@ -23,11 +23,6 @@ SycGeneratePrintStringCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycGeneratePrintStringCommand >> execute [
-	self executeRefactorings
-]
-
-{ #category : #execution }
 SycGeneratePrintStringCommand >> prepareFullExecutionInContext: aToolContext [
 	super prepareFullExecutionInContext: aToolContext.
 	

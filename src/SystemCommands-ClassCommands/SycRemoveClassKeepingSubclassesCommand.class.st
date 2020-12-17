@@ -48,12 +48,6 @@ SycRemoveClassKeepingSubclassesCommand >> defaultMenuItemName [
 ]
 
 { #category : #converting }
-SycRemoveClassKeepingSubclassesCommand >> execute [
-
-	self executeRefactorings
-]
-
-{ #category : #converting }
 SycRemoveClassKeepingSubclassesCommand >> isComplexRefactoring [
 	^true
 ]

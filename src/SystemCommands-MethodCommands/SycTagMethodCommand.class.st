@@ -40,7 +40,7 @@ SycTagMethodCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycTagMethodCommand >> execute [
+SycTagMethodCommand >> executeRefactoringCommand [
 	
 	methods do: [ :aMethod | 
 		| oldTags |

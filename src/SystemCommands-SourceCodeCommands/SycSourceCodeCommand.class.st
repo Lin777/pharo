@@ -31,7 +31,7 @@ SycSourceCodeCommand class >> method: aMethod node: aRBProgramNode [
 
 { #category : #private }
 SycSourceCodeCommand >> executeRefactoring: refactoring [
-
+	RBRefactoryChangeManager resetCounter.
 	NautilusRefactoring new refactoringOptions: refactoring.
 	[ refactoring execute ] on: RBRefactoringError do: [ :e | UIManager default alert: e messageText ].
 ]

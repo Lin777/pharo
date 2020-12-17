@@ -43,8 +43,8 @@ SycMoveMethodsToClassCommand >> defaultMenuItemName [
 ]
 
 { #category : #execution }
-SycMoveMethodsToClassCommand >> execute [
-	
+SycMoveMethodsToClassCommand >> executeRefactoringCommand [
+
 	methods 
 		collect: [ :each | RBMoveMethodToClassRefactoring method: each class: targetClass]
 		thenDo: [ :each | each execute ]

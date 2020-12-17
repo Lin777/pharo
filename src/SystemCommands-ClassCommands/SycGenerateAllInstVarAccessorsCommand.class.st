@@ -36,12 +36,6 @@ SycGenerateAllInstVarAccessorsCommand >> defaultMenuItemName [
 	^'Generate accessors'
 ]
 
-{ #category : #execution }
-SycGenerateAllInstVarAccessorsCommand >> execute [
-
-	self executeRefactorings
-]
-
 { #category : #testing }
 SycGenerateAllInstVarAccessorsCommand >> isComplexRefactoring [
 	^true

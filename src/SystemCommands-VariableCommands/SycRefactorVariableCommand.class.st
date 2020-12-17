@@ -47,7 +47,7 @@ SycRefactorVariableCommand >> createRefactorings: variableRefactoringClass using
 
 { #category : #execution }
 SycRefactorVariableCommand >> execute [
-
+	RBRefactoryChangeManager resetCounter.
 	self executeRefactorings
 ]
 
