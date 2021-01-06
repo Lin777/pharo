@@ -1,3 +1,8 @@
+"
+I'm a facade to use between command and refactorings. 
+
+I can to manage necessary previews to interact with user, I only need a context to collect necessary arguments to use a refactoring.
+"
 Class {
 	#name : #RBAbstractInteraction,
 	#superclass : #Object,
