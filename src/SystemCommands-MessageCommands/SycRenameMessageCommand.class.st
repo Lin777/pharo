@@ -11,19 +11,19 @@ Class {
 	#name : #SycRenameMessageCommand,
 	#superclass : #SycChangeMessageSignatureCommand,
 	#instVars : [
-		'newSignature'
+		'interaction'
 	],
 	#category : #'SystemCommands-MessageCommands'
 }
 
 { #category : #execution }
-SycRenameMessageCommand >> createRefactoring [
+SycRenameMessageCommand >> applyResultInContext: aToolContext [
+	self interaction applyResult 
+]
 
-	^ RBRenameMethodRefactoring
-		renameMethod: originalMessage selector 
-		in: (SycMessageOriginHack of: originalMessage) "look at SycMessageOriginHack comment"
-		to: newSignature selector 
-		permutation: (originalMessage computeArgumentPermutationsFor: newSignature) 
+{ #category : #execution }
+SycRenameMessageCommand >> confirmRefactoringInContext: aToolContext by: aCommandActivator [
+	self interaction confirmRefactoringInContext
 ]
 
 { #category : #accessing }
@@ -37,26 +37,26 @@ SycRenameMessageCommand >> defaultMenuItemName [
 	^'Rename'
 ]
 
-{ #category : #accessing }
-SycRenameMessageCommand >> newSignature [
-	^ newSignature
+{ #category : #execution }
+SycRenameMessageCommand >> execute [
+	self interaction executeRefactoring 
 ]
 
 { #category : #accessing }
-SycRenameMessageCommand >> newSignature: anObject [
-	newSignature := anObject
+SycRenameMessageCommand >> interaction [
+	^ interaction ifNil: [ interaction := RBRenameMethodInteraction new ]
+]
+
+{ #category : #execution }
+SycRenameMessageCommand >> isComplexRefactoring [
+	^ self interaction isComplexRefactoring
 ]
 
 { #category : #execution }
 SycRenameMessageCommand >> prepareFullExecutionInContext: aToolContext [
-	super prepareFullExecutionInContext: aToolContext.
-
-	newSignature := originalMessage requestNewSignature.
-	
-
+	self interaction context: aToolContext
 ]
 
 { #category : #execution }
 SycRenameMessageCommand >> resultMessageSelector [
-	^newSignature selector
 ]
