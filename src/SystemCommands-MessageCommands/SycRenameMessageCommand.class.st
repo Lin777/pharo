@@ -11,19 +11,25 @@ Class {
 	#name : #SycRenameMessageCommand,
 	#superclass : #SycChangeMessageSignatureCommand,
 	#instVars : [
-		'interaction'
+		'driverRefactoring'
 	],
 	#category : #'SystemCommands-MessageCommands'
 }
 
 { #category : #execution }
 SycRenameMessageCommand >> applyResultInContext: aToolContext [
-	self interaction applyResult 
+	self driverRefactoring applyResult 
 ]
 
 { #category : #execution }
 SycRenameMessageCommand >> confirmRefactoringInContext: aToolContext by: aCommandActivator [
-	self interaction confirmRefactoringInContext
+	self driverRefactoring confirmRefactoringInContext
+]
+
+{ #category : #accessing }
+SycRenameMessageCommand >> defaultDriver [
+
+	^ RBRenameMethodDriver
 ]
 
 { #category : #accessing }
@@ -37,24 +43,24 @@ SycRenameMessageCommand >> defaultMenuItemName [
 	^'Rename'
 ]
 
-{ #category : #execution }
-SycRenameMessageCommand >> execute [
-	self interaction executeRefactoring 
+{ #category : #accessing }
+SycRenameMessageCommand >> driverRefactoring [
+	^ driverRefactoring" ifNil: [ interaction := self defaultDriver new ]"
 ]
 
-{ #category : #accessing }
-SycRenameMessageCommand >> interaction [
-	^ interaction ifNil: [ interaction := RBRenameMethodDriver new ]
+{ #category : #execution }
+SycRenameMessageCommand >> execute [
+	self driverRefactoring executeRefactoring 
 ]
 
 { #category : #execution }
 SycRenameMessageCommand >> isComplexRefactoring [
-	^ self interaction isComplexRefactoring
+	^ self driverRefactoring isComplexRefactoring
 ]
 
 { #category : #execution }
-SycRenameMessageCommand >> prepareFullExecutionInContext: aToolContext [
-	self interaction context: aToolContext
+SycRenameMessageCommand >> readParametersFromContext: aToolContext [
+	driverRefactoring := self defaultDriver context: aToolContext.
 ]
 
 { #category : #execution }
