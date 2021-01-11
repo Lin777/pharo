@@ -1,6 +1,6 @@
 Class {
-	#name : #RBChangeMessageInteraction,
-	#superclass : #RBAbstractInteraction,
+	#name : #RBChangeMessageDriver,
+	#superclass : #RBAbstractDriver,
 	#instVars : [
 		'originalMessage'
 	],
@@ -8,11 +8,11 @@ Class {
 }
 
 { #category : #accessing }
-RBChangeMessageInteraction >> originalMessage [
+RBChangeMessageDriver >> originalMessage [
 	^ originalMessage ifNil: [ originalMessage := context lastSelectedMessage ]
 ]
 
 { #category : #actions }
-RBChangeMessageInteraction >> prepareFullExecution [
+RBChangeMessageDriver >> prepareFullExecution [
 	self originalMessage
 ]

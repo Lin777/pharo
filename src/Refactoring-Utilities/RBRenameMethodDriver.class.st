@@ -1,6 +1,6 @@
 Class {
-	#name : #RBRenameMethodInteraction,
-	#superclass : #RBChangeMessageInteraction,
+	#name : #RBRenameMethodDriver,
+	#superclass : #RBChangeMessageDriver,
 	#instVars : [
 		'newSignature'
 	],
@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #actions }
-RBRenameMethodInteraction >> applyResult [
+RBRenameMethodDriver >> applyResult [
 	context showMessage: originalMessage renamedTo: newSignature selector asSymbol
 ]
 
 { #category : #creating }
-RBRenameMethodInteraction >> asRefactorings [
+RBRenameMethodDriver >> asRefactorings [
 	^ { RBRenameMethodRefactoring
 		renameMethod: self originalMessage selector 
 		in: (SycMessageOriginHack of: self originalMessage) "look at SycMessageOriginHack comment"
@@ -22,17 +22,17 @@ RBRenameMethodInteraction >> asRefactorings [
 ]
 
 { #category : #testing }
-RBRenameMethodInteraction >> isComplexRefactoring [ 
+RBRenameMethodDriver >> isComplexRefactoring [ 
 	^ true
 ]
 
 { #category : #accesing }
-RBRenameMethodInteraction >> newSignature [
+RBRenameMethodDriver >> newSignature [
 	^ newSignature ifNil: [ newSignature := originalMessage requestNewSignature ]
 ]
 
 { #category : #actions }
-RBRenameMethodInteraction >> prepareFullExecution [
+RBRenameMethodDriver >> prepareFullExecution [
 	super prepareFullExecution.
 	self newSignature
 ]

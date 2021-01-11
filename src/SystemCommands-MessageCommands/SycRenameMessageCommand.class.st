@@ -44,7 +44,7 @@ SycRenameMessageCommand >> execute [
 
 { #category : #accessing }
 SycRenameMessageCommand >> interaction [
-	^ interaction ifNil: [ interaction := RBRenameMethodInteraction new ]
+	^ interaction ifNil: [ interaction := RBRenameMethodDriver new ]
 ]
 
 { #category : #execution }

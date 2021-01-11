@@ -4,7 +4,7 @@ I'm a facade to use between command and refactorings.
 I can to manage necessary previews to interact with user, I only need a context to collect necessary arguments to use a refactoring.
 "
 Class {
-	#name : #RBAbstractInteraction,
+	#name : #RBAbstractDriver,
 	#superclass : #Object,
 	#instVars : [
 		'context'
@@ -13,23 +13,23 @@ Class {
 }
 
 { #category : #accessing }
-RBAbstractInteraction class >> context: aToolContext [
+RBAbstractDriver class >> context: aToolContext [
 	^ self new
 		context: aToolContext;
 		yourself
 ]
 
 { #category : #actions }
-RBAbstractInteraction >> applyResult [
+RBAbstractDriver >> applyResult [
 ]
 
 { #category : #creating }
-RBAbstractInteraction >> asRefactorings [
+RBAbstractDriver >> asRefactorings [
 	self subclassResponsibility
 ]
 
 { #category : #actions }
-RBAbstractInteraction >> confirmRefactoringInContext [
+RBAbstractDriver >> confirmRefactoringInContext [
 	| submitDialog |
 	submitDialog := SycRefactoringPreviewPresenter
 		for: self
@@ -44,12 +44,12 @@ RBAbstractInteraction >> confirmRefactoringInContext [
 ]
 
 { #category : #accessing }
-RBAbstractInteraction >> context: aToolContext [
+RBAbstractDriver >> context: aToolContext [
 	context := aToolContext
 ]
 
 { #category : #actions }
-RBAbstractInteraction >> executeRefactoring [ 
+RBAbstractDriver >> executeRefactoring [ 
 	|refactoring|
 	self prepareFullExecution.
 	refactoring := self asRefactorings.
@@ -57,11 +57,11 @@ RBAbstractInteraction >> executeRefactoring [
 ]
 
 { #category : #testing }
-RBAbstractInteraction >> isComplexRefactoring [ 
+RBAbstractDriver >> isComplexRefactoring [ 
 	^ false
 ]
 
 { #category : #actions }
-RBAbstractInteraction >> prepareFullExecution [
+RBAbstractDriver >> prepareFullExecution [
 	self subclassResponsibility
 ]
