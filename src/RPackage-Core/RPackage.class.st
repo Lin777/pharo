@@ -957,6 +957,19 @@ RPackage >> isForeignClassExtension: categoryName [
 	^ categoryName first = $* and: [(self isYourClassExtension: categoryName) not]
 ]
 
+{ #category : #testing }
+RPackage >> isTestPackage [
+	"1. Test package ends with suffix -Tests. Suffix is case sensitive.
+	 2. Or test package contains '-Tests-' in middle.
+	Some examples: "
+	"(RPackage named: 'MockPackage-Tests') isTestPackage >>> true"
+	"(RPackage named: 'MockPackage-tests') isTestPackage >>> false"
+	"(RPackage named: 'MockPackage') isTestPackage >>> false"
+	"(RPackage named: 'MockPackage-Tests-Package') isTestPackage >>> true"
+	
+	^ (self name endsWith: '-Tests') or: [self name includesSubstring: '-Tests-']
+]
+
 { #category : #'system compatibility' }
 RPackage >> isYourClassExtension: categoryName [
 	^ categoryName notNil and: [self category: categoryName asLowercase matches: self methodCategoryPrefix]
@@ -1506,7 +1519,7 @@ RPackage >> tagsForClasses [
 	"Any class could be tagged for user purpose.
 	Now we implement it on top of RPackageTag"
 	
-	^self classTags reject: #isRoot thenCollect: #name
+	^self classTags reject: [:each | each isRoot] thenCollect: [:each | each name]
 ]
 
 { #category : #private }
