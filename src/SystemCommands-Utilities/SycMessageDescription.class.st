@@ -36,7 +36,7 @@ Class {
 		'argumentNames',
 		'contextUser'
 	],
-	#category : #'SystemCommands-MessageCommands'
+	#category : #'SystemCommands-Utilities'
 }
 
 { #category : #'instance creation' }

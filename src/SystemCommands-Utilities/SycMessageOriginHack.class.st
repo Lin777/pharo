@@ -11,7 +11,7 @@ Class {
 	#instVars : [
 		'message'
 	],
-	#category : #'SystemCommands-MessageCommands'
+	#category : #'SystemCommands-Utilities'
 }
 
 { #category : #'instance creation' }

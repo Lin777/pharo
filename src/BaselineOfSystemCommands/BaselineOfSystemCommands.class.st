@@ -15,6 +15,8 @@ BaselineOfSystemCommands >> baseline: spec [
 			spec
 				package: #'SystemCommands-RefactoringSupport'
 					with: [ spec requires: #('Commander') ];
+				package: #'SystemCommands-Utilities'
+					with: [ spec requires: #('Commander' #'SystemCommands-RefactoringSupport') ];
 				package: #'SystemCommands-ClassCommands'
 					with:
 						[ spec requires: #('Commander' #'SystemCommands-RefactoringSupport') ];
