@@ -13,7 +13,8 @@ Class {
 		'parseTree',
 		'sequenceNode',
 		'statementNodes',
-		'transformedNode'
+		'transformedNode',
+		'receiver'
 	],
 	#category : #'Refactoring-Core-Refactorings'
 }
@@ -35,11 +36,22 @@ RBCreateCascadeRefactoring class >> model: aNamespace combine: anInterval from: 
 
 { #category : #preconditions }
 RBCreateCascadeRefactoring >> addStatementNode: aNode [
-	aNode isMessage
-		ifTrue: [ ^ statementNodes add: aNode ].
-	aNode isCascade
-		ifTrue: [ ^ statementNodes addAll: aNode messages ].
-	self refactoringFailure: aNode formattedCode , ' is not a valid message'
+
+	aNode isMessage ifTrue: [ 
+		self changeReceiverOf: aNode.
+		^ statementNodes add: aNode ].
+	aNode isCascade ifTrue: [ 
+		self changeReceiverOf: aNode.
+		^ statementNodes addAll: aNode messages ].
+	self refactoringFailure:
+		aNode formattedCode , ' is not a valid message'
+]
+
+{ #category : #preconditions }
+RBCreateCascadeRefactoring >> changeReceiverOf: aNode [
+	receiver ifNil: [ ^self ].
+	aNode receiver = receiver variable ifTrue: [ 
+		aNode receiver: receiver value ]
 ]
 
 { #category : #initialization }
@@ -74,6 +86,14 @@ RBCreateCascadeRefactoring >> compileCode [
 ]
 
 { #category : #preconditions }
+RBCreateCascadeRefactoring >> extractReceiver [
+	| firstNode |
+	firstNode := sequenceNode statements first.
+	firstNode isAssignment ifTrue: [ receiver := firstNode ]
+		ifFalse: [ self addStatementNode: firstNode ].
+]
+
+{ #category : #preconditions }
 RBCreateCascadeRefactoring >> findReceiverNode [
 	"Find the sequence to be combined."
 
@@ -102,15 +122,16 @@ RBCreateCascadeRefactoring >> findStatementNodes [
 	"Find the sequence to be combined."
 
 	statementNodes := OrderedCollection new.
-	sequenceNode statements do: [ :each |
+	self extractReceiver.
+	sequenceNode statements allButFirstDo: [ :each |
 		(sequenceNode isLast: each)
-			ifFalse: [ self addStatementNode: each ]
+			ifFalse: [ self addStatementNode: each copy ]
 			ifTrue: [
 				| current |
 				current := each.
 				[ current isReturn or: [ current isAssignment ] ]
 					whileTrue: [ current := current value ].
-				self addStatementNode: current ] ]
+				self addStatementNode: current copy ] ].
 ]
 
 { #category : #accessing }
@@ -133,6 +154,20 @@ RBCreateCascadeRefactoring >> preconditions [
 { #category : #accessing }
 RBCreateCascadeRefactoring >> selectedSource [
 	^  self parseTree source copyFrom: selectedInterval first to: selectedInterval last
+]
+
+{ #category : #printing }
+RBCreateCascadeRefactoring >> storeOn: aStream [ 
+	aStream nextPut: $(.
+	self class storeOn: aStream.
+	aStream nextPutAll: ' combine: '.
+	selectedInterval storeOn: aStream.
+	aStream
+		nextPutAll: ' from: #';
+		nextPutAll: selector;
+		nextPutAll: ' in: '.
+	class storeOn: aStream.
+	aStream nextPut: $)
 ]
 
 { #category : #transforming }
