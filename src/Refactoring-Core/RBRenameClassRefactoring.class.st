@@ -40,6 +40,18 @@ RBRenameClassRefactoring >> className: aName newName: aNewName [
 	newName := aNewName asSymbol
 ]
 
+{ #category : #transforming }
+RBRenameClassRefactoring >> parseTreeRewriter [
+	^ (self parseTreeRewriterClass replaceLiteral: className with: newName)
+				replace: className with: newName;
+				replaceArgument: newName
+					withValueFrom: 
+						[:aNode | 
+						self 
+							refactoringFailure: newName , ' already exists within the reference scope'];
+				yourself
+]
+
 { #category : #preconditions }
 RBRenameClassRefactoring >> preconditions [
 	^((RBCondition withBlock: [class notNil and: [class isMeta not]]) 
@@ -50,26 +62,7 @@ RBRenameClassRefactoring >> preconditions [
 
 { #category : #transforming }
 RBRenameClassRefactoring >> renameReferences [
-	| replacer |
-	replacer := (self parseTreeRewriterClass replaceLiteral: className with: newName)
-				replace: className with: newName;
-				replaceArgument: newName
-					withValueFrom: 
-						[:aNode | 
-						self 
-							refactoringFailure: newName , ' already exists within the reference scope'];
-				yourself.
-	self model allReferencesToClass: class
-		do: 
-			[:method | 
-			(method modelClass hierarchyDefinesVariable: newName) 
-				ifTrue: 
-					[self refactoringFailure: newName , ' is already defined in hierarchy of ' 
-								, method modelClass printString].
-			self 
-				convertMethod: method selector
-				for: method modelClass
-				using: replacer]
+	self convertAllReferencesToClass: class using: self parseTreeRewriter.
 ]
 
 { #category : #printing }
@@ -86,8 +79,9 @@ RBRenameClassRefactoring >> storeOn: aStream [
 
 { #category : #transforming }
 RBRenameClassRefactoring >> transform [
+	self renameReferences.
 	self model 
 		renameClass: class
 		to: newName
-		around: [self renameReferences]
+		around: [ ].
 ]
