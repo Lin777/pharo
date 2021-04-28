@@ -44,7 +44,8 @@ Class {
 		'refactoring',
 		'newArgs',
 		'args',
-		'isEditable'
+		'isEditable',
+		'invalidArgNames'
 	],
 	#category : #'SystemCommands-RefactoringSupport'
 }
@@ -139,6 +140,17 @@ SycMethodNameEditorPresenter class >> openOn: aMethod [
 	"I take a RBMethodName as parameter and open the refactoring UI in a modal to rename it."
 	|temp|
 	temp := (self on: aMethod).
+	temp isEditable: false.
+	temp initializeEditerArgumentList.
+	^ temp openModalWithSpec
+]
+
+{ #category : #specs }
+SycMethodNameEditorPresenter class >> openOn: aMethod withInvalidArgs: aSet [
+	"I take a RBMethodName as parameter and open the refactoring UI in a modal to rename it."
+	|temp|
+	temp := (self on: aMethod).
+	temp invalidArgNames: aSet.
 	temp isEditable: false.
 	temp initializeEditerArgumentList.
 	^ temp openModalWithSpec
@@ -308,6 +320,11 @@ SycMethodNameEditorPresenter >> initializeWidgets [
 ]
 
 { #category : #accessing }
+SycMethodNameEditorPresenter >> invalidArgNames: aColl [ 
+	invalidArgNames := aColl
+]
+
+{ #category : #accessing }
 SycMethodNameEditorPresenter >> isEditable: aBoolean [ 
 	isEditable := aBoolean .
 	
@@ -321,12 +338,12 @@ SycMethodNameEditorPresenter >> newArgName [
 	| baseString index newString |
 	newString := baseString := 'arg'.
 	index := 0.
-	
-	[ args includes: newString ] 
-			whileTrue: 
-				[index := index + 1.
-				newString := baseString , index printString].
+	[ invalidArgNames includes: newString ] 
+		whileTrue: 
+			[index := index + 1.
+			newString := baseString , index printString].
 	^newString
+	
 ]
 
 { #category : #accessing }

@@ -36,7 +36,7 @@ SycFindAndReplaceMethodCommand >> createRefactoring [
 		model: model
 		find: originalMessage selector
 		of: originalMessage contextUser origin
-		inWholeHierarchy: self searchInTheWholeHierarchy
+		inWholeHierarchy: self searchInTheWholeHierarchy 
 ]
 
 { #category : #execution }

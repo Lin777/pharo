@@ -49,5 +49,7 @@ SycMessageOriginHack >> parseTreeFor: aSelector [
 { #category : #'hacked methods' }
 SycMessageOriginHack >> storeOn: aStream [
 
-	^ message methodClass storeOn: aStream
+	[ message methodClass storeOn: aStream ]
+	on: Error 
+	do: [ Object storeOn: aStream ]
 ]

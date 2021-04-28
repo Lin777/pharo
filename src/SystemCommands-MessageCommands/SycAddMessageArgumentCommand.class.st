@@ -51,14 +51,12 @@ SycAddMessageArgumentCommand >> createRefactoring [
 ]
 
 { #category : #execution }
-SycAddMessageArgumentCommand >> createValidNameArgument [
-	|method newString baseString i|
-	method := originalMessage methodClass >> originalMessage selector.
+SycAddMessageArgumentCommand >> createValidNameArgumentWhitout: invalidArgs [
+	| newString baseString i|
 	newString := baseString := 'anObject'.
 	i := 0.
 	
-	[(method tempNames includes: newString) 
-		or: [originalMessage methodClass allInstVarNames includes: newString]] 
+	[ invalidArgs includes: newString ] 
 			whileTrue: 
 				[i := i + 1.
 				newString := baseString , i printString].
@@ -89,7 +87,6 @@ SycAddMessageArgumentCommand >> newSelector: anObject [
 { #category : #execution }
 SycAddMessageArgumentCommand >> prepareFullExecutionInContext: aToolContext [
 	super prepareFullExecutionInContext: aToolContext.
-	
 	newSelector := self requestMessageIn: aToolContext.
 	
 	argumentDefaultValue := UIManager default
@@ -99,9 +96,13 @@ SycAddMessageArgumentCommand >> prepareFullExecutionInContext: aToolContext [
 
 { #category : #execution }
 SycAddMessageArgumentCommand >> requestMessageIn: aToolContext [
-	| methodName dialog |
-	methodName := RBMethodName selector: originalMessage selector, 'arg:' arguments: originalMessage argumentNames, self createValidNameArgument.
-	dialog := SycMethodNameEditorPresenter openOn: methodName.
+	| methodName dialog invalidArgNames |
+	invalidArgNames := Set new.
+	(model allImplementorsOf: originalMessage selector) do: 
+		[ :e | |cm | cm:=(e realClass >> originalMessage selector).
+	invalidArgNames addAll: (cm argumentNames, cm origin instVarNames) ].
+	methodName := RBMethodName selector: originalMessage selector, 'arg:' arguments: originalMessage argumentNames, (self createValidNameArgumentWhitout: invalidArgNames).
+	dialog := SycMethodNameEditorPresenter openOn: methodName withInvalidArgs: invalidArgNames.
 	dialog cancelled ifTrue: [  CmdCommandAborted signal ].
 	
 	originalMessage selector = methodName selector & (originalMessage argumentNames = methodName arguments)
