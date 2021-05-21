@@ -3,7 +3,7 @@ I am a morphic adapter used to show a modal for a ModalWindowPresenter in Morphi
 "
 Class {
 	#name : #SpMorphicModalWindowAdapter,
-	#superclass : #SpMorphicDialogWindowAdapter,
+	#superclass : #SpMorphicDialogAsModalWindowAdapter,
 	#instVars : [
 		'backdropMorph'
 	],
@@ -44,13 +44,5 @@ SpMorphicModalWindowAdapter >> open [
 		openInWorld;
 		yourself.
 
-	self widget beSticky.
-	self presenter windowIsOpening.
-	"I am copying here what is defined in SystemWindow>>#openModal (but introducing the centered 
-	 check inbetween because #openInWorld will use the RealEstateAgent to position the window 
-	 and we want to (maybe) center it before showing it."
-	self widget openInWorld.
-	self presenter isCentered 
-		ifTrue: [ self centered ].
-	MorphicRenderLoop new doOneCycleWhile: [ self widget isInWorld ]
+	super open
 ]

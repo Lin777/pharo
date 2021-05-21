@@ -42,7 +42,7 @@ RBItemsSelectionPresenter class >> defaultSpec [
 RBItemsSelectionPresenter class >> label: aString withItems: coll1 selecting: coll2 [
 	^ self new 
 		label: aString withItems: coll1 selecting: coll2;
-		openModalWithSpec 
+		openDialogAsModalWithSpec
 ]
 
 { #category : #actions }

@@ -263,6 +263,24 @@ SpApplication >> openDialog: aPresenter withSpecLayout: aSpecLayout [
 ]
 
 { #category : #showing }
+SpApplication >> openDialogAsModal: aPresenter [ 
+	
+	^ self 
+		openDialogAsModal: aPresenter 
+		withSpecLayout: aPresenter defaultSpec
+
+]
+
+{ #category : #showing }
+SpApplication >> openDialogAsModal: aPresenter withSpecLayout: aSpecLayout [
+
+	^ self 
+		open: aPresenter 
+		withSpecLayout: aSpecLayout 
+		using: SpDialogAsModalWindowPresenter
+]
+
+{ #category : #showing }
 SpApplication >> openModal: aPresenter [ 
 	
 	^ self 

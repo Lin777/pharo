@@ -98,7 +98,7 @@ SycMethodNameEditorPresenter class >> openOn: aMethod [
 	"I take a RBMethodName as parameter and open the refactoring UI in a modal to rename it."
 	|temp|
 	temp := self on: aMethod.
-	^ temp openModalWithSpec
+	^ temp openDialogAsModalWithSpec
 ]
 
 { #category : #specs }
@@ -109,7 +109,7 @@ SycMethodNameEditorPresenter class >> openOn: aMethod canRenameArgs: aBoolean1 c
 	temp canRenameArgs: aBoolean1.
 	temp canRemoveArgs: aBoolean2.
 	temp canAddArgs: aBoolean3.
-	^ temp openModalWithSpec
+	^ temp openDialogAsModalWithSpec
 ]
 
 { #category : #specs }
@@ -121,7 +121,7 @@ SycMethodNameEditorPresenter class >> openOn: aMethod withInvalidArgs: aSet canR
 	temp canRenameArgs: aBoolean1.
 	temp canRemoveArgs: aBoolean2.
 	temp canAddArgs: aBoolean3.
-	^ temp openModalWithSpec
+	^ temp openDialogAsModalWithSpec
 ]
 
 { #category : #action }

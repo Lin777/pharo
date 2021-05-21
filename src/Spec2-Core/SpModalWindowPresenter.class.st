@@ -28,7 +28,7 @@ SomePresenter>>#initializeDialogWindow: aDialogPresenter
 "
 Class {
 	#name : #SpModalWindowPresenter,
-	#superclass : #SpDialogWindowPresenter,
+	#superclass : #SpDialogAsModalWindowPresenter,
 	#instVars : [
 		'#closeOnBackdropClick => SpObservableSlot'
 	],
