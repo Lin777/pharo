@@ -36,8 +36,9 @@ RBAddVariableTransformation >> preconditions [
 
 { #category : #executing }
 RBAddVariableTransformation >> privateTransform [
-	
+
 	isClassVariable
-		ifTrue: [ self definingClass theNonMetaClass addClassVariable: variableName ]
+		ifTrue: [ 
+		self definingClass theNonMetaClass addClassVariable: variableName ]
 		ifFalse: [ self definingClass addInstanceVariable: variableName ]
 ]

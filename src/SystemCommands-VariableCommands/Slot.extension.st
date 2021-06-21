@@ -2,9 +2,10 @@ Extension { #name : #Slot }
 
 { #category : #'*SystemCommands-VariableCommands' }
 Slot >> createRefactoring: variableRefactoringClass for: declarationClass [
-	^variableRefactoringClass 
-			variable: self name
-			class: declarationClass
+
+	^ variableRefactoringClass
+		  instanceVariable: self name
+		  class: declarationClass
 ]
 
 { #category : #'*SystemCommands-VariableCommands' }

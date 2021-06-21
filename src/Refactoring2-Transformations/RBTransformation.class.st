@@ -110,6 +110,15 @@ RBTransformation >> checksPreconditions [
 	self preconditionChecking: true
 ]
 
+{ #category : #converting }
+RBTransformation >> classObjectFor: anObject [
+
+	(anObject isBehavior or: [ anObject isTrait ]) ifTrue: [ 
+		^ self model classFor: anObject ].
+	anObject isSymbol ifTrue: [ ^ self model classNamed: anObject ].
+	^ anObject
+]
+
 { #category : #private }
 RBTransformation >> convertMethod: selector for: aClass using: searchReplacer [
 	"Convert the parse tree for selector using the searchReplacer. If a
@@ -215,6 +224,11 @@ RBTransformation >> parseTreeSearcherClass [
 	^ RBParseTreeSearcher
 ]
 
+{ #category : #accessing }
+RBTransformation >> parserClass [
+	^ RBParser
+]
+
 { #category : #preconditions }
 RBTransformation >> preconditionChecking [
 
@@ -235,7 +249,7 @@ RBTransformation >> preconditions [
 
 { #category : #executing }
 RBTransformation >> primitiveExecute [
-	"compatibility method RBRefactoring"
+	self checkPreconditions.
 	self transform
 ]
 
@@ -243,6 +257,16 @@ RBTransformation >> primitiveExecute [
 RBTransformation >> privateTransform [
 
 	self subclassResponsibility
+]
+
+{ #category : #private }
+RBTransformation >> refactoringConfirmWarning: aString [
+
+	| ret |
+	ret := self uiManager
+		       confirm: aString
+		       orCancel: [ ^ RBRefactoringFailure signal: 'aborted' ].
+	^ ret
 ]
 
 { #category : #preconditions }
@@ -255,6 +279,18 @@ RBTransformation >> refactoringError: aString [
 RBTransformation >> refactoringError: aString with: aBlock [
 
 	^ RBRefactoringError signal: aString with: aBlock
+]
+
+{ #category : #private }
+RBTransformation >> refactoringFailure: aString [
+
+	^ RBRefactoringFailure signal: aString
+]
+
+{ #category : #private }
+RBTransformation >> refactoringWarning: aString [
+
+	^ RBRefactoringWarning signal: aString
 ]
 
 { #category : #accessing }

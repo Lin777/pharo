@@ -30,7 +30,7 @@ RBAddMethodTransformation class >> model: aRBModel sourceCode: aString in: aClas
 		model: aRBModel;
 		sourceCode: aString
 		in: aClass
-		withProtocol: protocol asSymbol;
+		withProtocol: protocol first;
 		yourself
 ]
 

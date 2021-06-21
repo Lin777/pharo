@@ -21,19 +21,21 @@ Class {
 RBPullUpVariableTransformation >> buildTransformations [
 
 	^ OrderedCollection new
-		addAll: (self variableDefinitionsInHierarchy
-			collect: [ :each | 
-				RBRemoveVariableTransformation
-				model: self model
-				variable: variableName
-				class: each
-				classVariable: isClassVariable ]);
-		add: (RBAddVariableTransformation
-				model: self model
-				variable: variableName
-				class: className
-				classVariable: isClassVariable);
-		yourself
+		  addAll: (self variableDefinitionsInHierarchy collect: [ :each | 
+					   | aClass |
+					   aClass := each.
+					   self definingClass isMeta ifTrue: [ aClass := each , ' class' ].
+					   RBRemoveVariableTransformation
+						   model: self model
+						   variable: variableName
+						   class: aClass
+						   classVariable: isClassVariable ]);
+		  add: (RBAddVariableTransformation
+				   model: self model
+				   variable: variableName
+				   class: className
+				   classVariable: isClassVariable);
+		  yourself
 ]
 
 { #category : #printing }

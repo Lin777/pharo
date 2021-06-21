@@ -17,8 +17,7 @@ SycPushDownVariableCommand class >> sourceCodeMenuActivation [
 { #category : #execution }
 SycPushDownVariableCommand >> asRefactorings [
 
-	^self 
-		createRefactorings: RBPushDownInstanceVariableRefactoring
+	^ (self createRefactorings: RBPushDownVariableTransformation) do: [ :ref | ref asRefactoring ]
 ]
 
 { #category : #accessing }
